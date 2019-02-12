@@ -34,6 +34,11 @@ export default class Counter extends React.Component {
     }
     return null;
   }
+
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("getSnapshotBeforeUpdate get called");
+    return null;
+  }
   componentDidMount() {
     console.log("ComponentDidMount get called");
   }
