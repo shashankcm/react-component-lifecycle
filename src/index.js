@@ -9,7 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       mount: true,
-      ignoreProp: 0
+      ignoreProp: 0,
+      seed: 40
     };
     this.ignoreProp = () => {
       this.setState(state => {
@@ -33,13 +34,22 @@ class App extends React.Component {
       };
     });
   };
+  seedGenerator = () => {
+    console.log("called");
+    this.setState(state => {
+      return {
+        seed: Number.parseInt(Math.random() * 100)
+      };
+    });
+  };
   render() {
     return (
       <div className="App">
-        <button onClick={this.ignoreProp}>IgnoreProp</button>
+        <button onClick={this.ignoreProp}>IgnoreProp</button>{" "}
+        <button onClick={this.seedGenerator}>Generate Seed</button>
         <br />
         {this.state.mount ? (
-          <Counter ignoreProp={this.state.ignoreProp} />
+          <Counter ignoreProp={this.state.ignoreProp} seed={this.state.seed} />
         ) : null}
         <br />
         <button onClick={this.mountComponent} disabled={this.state.mount}>

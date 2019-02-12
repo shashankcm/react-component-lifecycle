@@ -5,7 +5,8 @@ export default class Counter extends React.Component {
     console.log("Constructor get called");
     super(props);
     this.state = {
-      counter: 0
+      counter: 0,
+      seed: 0
     };
   }
   increment = () => {
@@ -23,7 +24,16 @@ export default class Counter extends React.Component {
       };
     });
   };
-
+  static getDerivedStateFromProps(props, state) {
+    console.log("getDerivedStateFromProps get called");
+    if (props.seed && state.seed !== props.seed) {
+      return {
+        seed: props.seed,
+        counter: props.seed
+      };
+    }
+    return null;
+  }
   componentDidMount() {
     console.log("ComponentDidMount get called");
   }
