@@ -38,4 +38,7 @@ export default class Counter extends React.Component {
       </div>
     );
   }
+  componentDidUpdate(prevProps, prevState, snapShot) {
+    console.log("componentDidUpdate get called");
+  }
 }
