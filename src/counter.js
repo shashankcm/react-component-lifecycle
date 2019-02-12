@@ -1,12 +1,16 @@
 import React from "react";
 
+const ErrorComponent = () => <div>{props.ignore}</div>;
+
 export default class Counter extends React.Component {
   constructor(props) {
     console.log("Constructor get called");
     super(props);
     this.state = {
       counter: 0,
-      seed: 0
+      seed: 0,
+      error: "",
+      info: ""
     };
   }
   increment = () => {
@@ -55,11 +59,21 @@ export default class Counter extends React.Component {
   }
   render() {
     console.log("Render get called");
+    const { error } = this.state;
+    if (this.props.showErrorComponent && error) {
+      return (
+        <div>
+          Error Occured please resolve and render again --> {error.message}
+        </div>
+      );
+    }
     return (
       <div>
         <div>Counter: {this.state.counter}</div>
         <button onClick={this.increment}> + </button> {`  `}
         <button onClick={this.decrement}> - </button>
+        <br />
+        {this.props.showErrorComponent ? <ErrorComponent /> : null}
       </div>
     );
   }
@@ -68,5 +82,12 @@ export default class Counter extends React.Component {
   }
   componentWillUnmount() {
     console.log("componentWillUnmount get called");
+  }
+  componentDidCatch(error, info) {
+    console.log("componentDidCatch Method called");
+    this.setState({
+      error: error,
+      info: info
+    });
   }
 }
